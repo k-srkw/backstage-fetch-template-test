@@ -1,0 +1,52 @@
+# 同一リポジトリの異なるパスへ fetch:template を複数回実行するテンプレート
+# 目的: リモートリポジトリへのアクセスが何回発生するかの検証
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: fetch-template-multi-fetch-test
+  title: fetch:template 複数回実行・リモートアクセス回数検証用
+  description: |
+    同一リポジトリ内の異なるパス（skeleton-a, skeleton-b, skeleton-c）を
+    それぞれ fetch:template で取得します。リモートリポジトリへのアクセス回数を
+    検証するために、3 回の fetch:template ステップを連続で実行します。
+spec:
+  owner: backstage/techdocs-core
+  type: service
+
+  parameters:
+    - title: 検証用パラメータ
+      description: 各スケルトンは固定内容のため、パラメータは任意です
+      properties:
+        note:
+          title: メモ
+          type: string
+          description: 検証実行時のメモ（ログやスクリーンショット用）
+          default: ""
+
+  steps:
+    - id: fetch-skeleton-a
+      name: Fetch skeleton-a
+      action: fetch:template
+      input:
+        url: ./skeleton-a
+        targetPath: ./out-skeleton-a
+        values: {}
+
+    - id: fetch-skeleton-b
+      name: Fetch skeleton-b
+      action: fetch:template
+      input:
+        url: ./skeleton-b
+        targetPath: ./out-skeleton-b
+        values: {}
+
+    - id: fetch-skeleton-c
+      name: Fetch skeleton-c
+      action: fetch:template
+      input:
+        url: ./skeleton-c
+        targetPath: ./out-skeleton-c
+        values: {}
+
+  output:
+    links: []

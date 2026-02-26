@@ -6,18 +6,25 @@ Backstage の **fetch:template** Action の挙動を確認するための Softwa
 
 ```
 .
-├── README.md           # 本ファイル
-├── template.yaml       # Software Template 定義（Create で選択するテンプレート）
-└── skeleton/           # fetch:template が取得・展開するスケルトン
-    ├── README.md
-    ├── package.json
-    ├── catalog-info.yaml
-    ├── optional-feature.txt   # addOptionalFile が true のとき内容が変わる
-    └── src/
-        └── index.ts
+├── README.md                    # 本ファイル
+├── template.yaml                # 単一 fetch:template 用テンプレート
+├── template-multi-fetch.yaml    # 複数回 fetch:template 実行・リモートアクセス回数検証用
+├── docs/
+│   └── VERIFICATION-REMOTE-ACCESS-COUNT.md   # リモートアクセス回数検証手順
+├── skeleton/                   # 単一テンプレート用スケルトン
+│   ├── README.md
+│   ├── package.json
+│   ├── catalog-info.yaml
+│   ├── optional-feature.txt
+│   └── src/
+│       └── index.ts
+├── skeleton-a/                  # 複数 fetch 検証用（同一リポジトリ・異なるパス）
+├── skeleton-b/
+└── skeleton-c/
 ```
 
 - **template.yaml**: Create 画面で選ぶテンプレート。`fetch:template` ステップで `./skeleton` を取得し、パラメータを `values` として渡します。
+- **template-multi-fetch.yaml**: 同一リポジトリ内の `skeleton-a`, `skeleton-b`, `skeleton-c` を**3 回** `fetch:template` で取得するテンプレート。**リモートリポジトリへのアクセスが何回発生するか**の検証用（手順は [docs/VERIFICATION-REMOTE-ACCESS-COUNT.md](docs/VERIFICATION-REMOTE-ACCESS-COUNT.md) を参照）。
 - **skeleton/**: Nunjucks で記述したスケルトン。`{{ name }}` や `{{ description }}` などが実行時に置換されます。
 
 ## Backstage での登録方法
@@ -53,6 +60,10 @@ catalog:
 
 4. **targetPath（任意）**
    - `template.yaml` の `fetch:template` の `input` に `targetPath: ./my-subdir` を追加して実行し、スケルトンが `my-subdir` 以下に展開されることを確認する。
+
+## リモートアクセス回数の検証
+
+同一リポジトリの異なるパスに存在するスケルトンを、複数回 `fetch:template` で取得したときにリモートアクセスが何回発生するかを検証する場合は、**template-multi-fetch.yaml** と **skeleton-a / skeleton-b / skeleton-c** を使用する。手順と計測方法は [docs/VERIFICATION-REMOTE-ACCESS-COUNT.md](docs/VERIFICATION-REMOTE-ACCESS-COUNT.md) を参照。
 
 ## 参考
 
