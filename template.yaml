@@ -1,0 +1,54 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: fetch-template-test
+  title: fetch:template 挙動確認用テンプレート
+  description: |
+    Backstage の fetch:template Action の挙動を確認するための Software Template です。
+    スケルトンを取得し、入力値でファイル名・内容をテンプレート置換した結果をワークスペースに出力します。
+spec:
+  owner: backstage/techdocs-core
+  type: service
+
+  parameters:
+    - title: コンポーネント情報
+      required:
+        - name
+        - description
+        - owner
+      properties:
+        name:
+          title: コンポーネント名
+          type: string
+          description: 作成するコンポーネントの名前（例: my-service）
+          ui:autofocus: true
+        description:
+          title: 説明
+          type: string
+          description: コンポーネントの説明文
+          ui:options:
+            rows: 3
+        owner:
+          title: オーナー
+          type: string
+          description: オーナー（グループまたはユーザー、例: team-a）
+        addOptionalFile:
+          title: オプションを追加する
+          type: boolean
+          description: 有効にすると optional-feature.txt に追加メッセージが出力されます
+          default: false
+
+  steps:
+    - id: fetch-template
+      name: Fetch template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          name: ${{ parameters.name }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+          addOptionalFile: ${{ parameters.addOptionalFile }}
+
+  output:
+    links: []

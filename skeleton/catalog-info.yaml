@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: {{ name | lower | replace(' ', '-') }}
+  title: {{ name }}
+  description: {{ description }}
+  annotations:
+    backstage.io/source-location: url:.
+  tags:
+    - fetch-template-demo
+spec:
+  type: service
+  lifecycle: experimental
+  owner: {{ owner }}

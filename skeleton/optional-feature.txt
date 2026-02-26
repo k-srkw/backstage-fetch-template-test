@@ -1,0 +1,6 @@
+{% if addOptionalFile %}
+このファイルは「オプションを追加する」を有効にした場合にのみ表示される内容です。
+fetch:template の values で addOptionalFile: true が渡されています。
+{% else %}
+addOptionalFile が false のため、このメッセージが表示されています。
+{% endif %}

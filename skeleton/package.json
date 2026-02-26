@@ -1,0 +1,11 @@
+{
+  "name": "{{ name | lower | replace(' ', '-') }}",
+  "version": "0.1.0",
+  "description": "{{ description }}",
+  "private": true,
+  "scripts": {
+    "dev": "echo 'Run your dev server'",
+    "build": "echo 'Build step'",
+    "test": "echo 'Run tests'"
+  }
+}
