@@ -36,8 +36,8 @@ spec:
       name: Fetch skeleton-b
       action: fetch:template
       input:
-        url: ./skeleton-b
-        targetPath: ./out-skeleton-b
+        url: https://github.com/redhat-developer/red-hat-developer-hub-software-templates/tree/main/skeletons/catalog-info
+        targetPath: ./
         values: {}
 
     - id: fetch-skeleton-c
