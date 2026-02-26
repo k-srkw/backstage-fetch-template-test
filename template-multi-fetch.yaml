@@ -40,13 +40,13 @@ spec:
         targetPath: ./out-skeleton-b
         values: {}
 
-    # - id: fetch-skeleton-c
-    #   name: Fetch skeleton-c
-    #   action: fetch:template
-    #   input:
-    #     url: ./skeleton-c
-    #     targetPath: ./out-skeleton-c
-    #     values: {}
+    - id: fetch-skeleton-c
+      name: Fetch skeleton-c
+      action: fetch:template
+      input:
+        url: ./skeleton-c
+        targetPath: ./out-skeleton-c
+        values: {}
 
   output:
     links: []
